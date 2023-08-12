@@ -1,23 +1,20 @@
-import $ from 'jquery';
-import debounce from 'lodash/debounce';
+import '../css/main.css';
+const $ = require('jquery');
+const _ = require('lodash');
 
-const button = $('<button>').text('Click here to get started');
-const countParagraph = $('<p>').attr('id', 'count');
-const copyrightParagraph = $('<p>').text('Copyright - Holberton School');
+$('body').append('<p>Holberton Dashboard</p>');
+$('body').append('<p>Dashboard data for the students</p>');
+$('body').append('<button>Click here to get started</button>');
+$('body').append("<p id='count'></p>");
+$('body').append('<p>Copyright - Holberton School</p>');
 
-$('body').append(
-  $('<p>').text('Holberton Dashboard'),
-  $('<p>').text('Dashboard data for the students'),
-  button,
-  countParagraph,
-  copyrightParagraph
-);
+const updateCounter = () => {
+	let times = $('#count').html() || 0;
+	$('button').on('click', () => {
+		times++;
+		$('#count').html(`${times} clicks on the button`);
+	});
+};
 
-let count = 0;
-const updateCounter = debounce(() => {
-  count++;
-  countParagraph.text(`${count} clicks on the button`);
-}, 300);
-
-button.on('click', updateCounter);
-
+_.debounce(updateCounter, 500);
+updateCounter();
